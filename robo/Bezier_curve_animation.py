@@ -4,18 +4,15 @@ import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.animation import FuncAnimation
 
-P0 = np.array([2, 2])
-P1 = np.array([5, 2])
-P2 = np.array([8, 4])
-P3 = np.array([3, 3])
-P4 = np.array([2, 2])
-controll_dot = np.array([P0, P1, P2, P3, P4])
+controll_dot = np.array([[2, 2], [5, 2], [5, 5], [7, 5]])
 
 t = np.linspace(0, 1, 100)
 bezier_list = []
 
 for i in t:
-    dot =(1 - i)**4 * P0 + 4 * (1 - i)**3 * i * P1 + 6 * (1 - i)**2 * i**2 * P2 + 4  * (1 - i) * i**3 * P3 + i**4 * P4
+    dot = np.array([0., 0.])
+    for j in range(len(controll_dot)):
+        dot += (math.factorial(len(controll_dot)-1) // math.factorial(j) // math.factorial(len(controll_dot) - (j+1))) * (1 - i)**(len(controll_dot) - (j+1)) *i**(j) * controll_dot[j][:]
     dot_list = dot.tolist()
     bezier_list.append(dot_list)
 

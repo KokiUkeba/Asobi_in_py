@@ -55,10 +55,10 @@ robo_wheele_RPM_3 = []
 robo_wheele_RPM_4 = []
 
 Start = [0., 0.]
-Goal = [7., 3.]
-Goal_angle = 180.
+Goal = [0.4*math.cos(math.radians(45)), 0.4*math.sin(math.radians(45))]
+Goal_angle = 270.
 
-Time_length = 20.
+Time_length = 10.
 Update_interval = 0.001
 Acceleration_limit = 3.
 Angular_acceleration_limit = 3.
@@ -66,8 +66,8 @@ Angular_acceleration_limit = 3.
 Start_Goal = math.sqrt((Goal[0] - Start[0])**2 + (Goal[1] - Start[1])**2)
 global_theta = math.atan2(Goal[1], Goal[0])
 
-pid1 = PID(0.0005, 0.000000001, 0.01, 0., Start_Goal)
-pid_angle = PID(0.0005, 0.000000001, 0.01, 0., Goal_angle%360)
+pid1 = PID(0.0007, 0.000000001, 0., 0., Start_Goal)
+pid_angle = PID(0.0007, 0.000000001, 0., 0., Goal_angle%360)
 
 time_list = np.linspace(0., Time_length, int(Time_length/Update_interval))
 
@@ -163,7 +163,7 @@ robo_wheele_RPM_2_anm = robo_wheele_RPM_2[::step]
 robo_wheele_RPM_3_anm = robo_wheele_RPM_3[::step]
 robo_wheele_RPM_4_anm = robo_wheele_RPM_4[::step]
 
-fig, ax = plt.subplots(2, 2, squeeze=False)
+fig, ax = plt.subplots(1, 1, squeeze=False)
 
 def update(f):
     fig.suptitle('frame{}/{}'.format(f, len(time_list_anm)))
@@ -182,33 +182,33 @@ def update(f):
     ax[0, 0].set_title("goal=[{},{}], goal_angle={}".format(Goal[0], Goal[1], Goal_angle))
     ax[0, 0].set_aspect('equal','datalim')
 
-    ax[0, 1].cla()
-    ax[0, 1].axhline(y=Start_Goal, xmin=0, xmax=1, color='blue', linestyle='dashed')
-    ax[0, 1].plot(time_list_anm, r_list_anm, color='gray')
-    ax[0, 1].plot(time_list_anm[f], r_list_anm[f], 'o', color='black')
-    ax[0, 1].set_title("Kp={}, Ki={}, Kd={}".format(pid1.Kp, pid1.Ki, pid1.Kd))
+    #ax[0, 1].cla()
+    #ax[0, 1].axhline(y=Start_Goal, xmin=0, xmax=1, color='blue', linestyle='dashed')
+    #ax[0, 1].plot(time_list_anm, r_list_anm, color='gray')
+    #ax[0, 1].plot(time_list_anm[f], r_list_anm[f], 'o', color='black')
+    #ax[0, 1].set_title("Kp={}, Ki={}, Kd={}".format(pid1.Kp, pid1.Ki, pid1.Kd))
 
-    ax[1, 0].cla()
+    #ax[1, 0].cla()
     #ax[1, 0].plot(time_list_anm, robo_velocity_anm, color='gray')
     #ax[1, 0].plot(time_list_anm[f], robo_velocity_anm[f], 'o', color='black')
     #ax[1, 0].plot(time_list_anm, robo_RPM_anm, color='gray', alpha=0.5)
     #ax[1, 0].plot(time_list_anm[f], robo_RPM_anm[f], 'o', color='black', alpha=0.5)
     #ax[1, 0].plot(time_list_anm, robo_acceleration_anm, color='gray')
     #ax[1, 0].plot(time_list_anm[f], robo_acceleration_anm[f], 'o', color='black')
-    ax[1, 0].plot(time_list_anm, robo_wheele_RPM_1_anm, color='pink', alpha=0.5)
-    ax[1, 0].plot(time_list_anm, robo_wheele_RPM_2_anm, color='navajowhite', alpha=0.5)
-    ax[1, 0].plot(time_list_anm, robo_wheele_RPM_3_anm, color='lightgreen', alpha=0.5)
-    ax[1, 0].plot(time_list_anm, robo_wheele_RPM_4_anm, color='lightskyblue', alpha=0.5)
-    ax[1, 0].plot(time_list_anm[f], robo_wheele_RPM_1_anm[f], 'o', color='red', alpha=0.5)
-    ax[1, 0].plot(time_list_anm[f], robo_wheele_RPM_2_anm[f], 'o', color='orange', alpha=0.5)
-    ax[1, 0].plot(time_list_anm[f], robo_wheele_RPM_3_anm[f], 'o', color='green', alpha=0.5)
-    ax[1, 0].plot(time_list_anm[f], robo_wheele_RPM_4_anm[f], 'o', color='blue', alpha=0.5)
+    #ax[1, 0].plot(time_list_anm, robo_wheele_RPM_1_anm, color='pink', alpha=0.6)
+    #ax[1, 0].plot(time_list_anm, robo_wheele_RPM_2_anm, color='navajowhite', alpha=0.6)
+    #ax[1, 0].plot(time_list_anm, robo_wheele_RPM_3_anm, color='lightgreen', alpha=0.6)
+    #ax[1, 0].plot(time_list_anm, robo_wheele_RPM_4_anm, color='lightskyblue', alpha=0.6)
+    #ax[1, 0].plot(time_list_anm[f], robo_wheele_RPM_1_anm[f], 'o', color='red', alpha=0.5)
+    #ax[1, 0].plot(time_list_anm[f], robo_wheele_RPM_2_anm[f], 'o', color='orange', alpha=0.5)
+    #ax[1, 0].plot(time_list_anm[f], robo_wheele_RPM_3_anm[f], 'o', color='green', alpha=0.5)
+    #ax[1, 0].plot(time_list_anm[f], robo_wheele_RPM_4_anm[f], 'o', color='blue', alpha=0.5)
 
-    ax[1, 1].cla()
-    ax[1, 1].axhline(y=Goal_angle, xmin=0, xmax=1, color='blue', linestyle='dashed')
-    ax[1, 1].plot(time_list_anm, robo_angle_anm, color='gray')
-    ax[1, 1].plot(time_list_anm[f], robo_angle_anm[f], 'o', color='black')
-    ax[1, 1].set_title("Kp={}, Ki={}, Kd={}".format(pid_angle.Kp, pid_angle.Ki, pid_angle.Kd))
+    #ax[1, 1].cla()
+    #ax[1, 1].axhline(y=Goal_angle, xmin=0, xmax=1, color='blue', linestyle='dashed')
+    #ax[1, 1].plot(time_list_anm, robo_angle_anm, color='gray')
+    #ax[1, 1].plot(time_list_anm[f], robo_angle_anm[f], 'o', color='black')
+    #ax[1, 1].set_title("Kp={}, Ki={}, Kd={}".format(pid_angle.Kp, pid_angle.Ki, pid_angle.Kd))
 
 anim = FuncAnimation(fig, update, frames=len(time_list_anm), interval = 0.001)
 plt.show()
